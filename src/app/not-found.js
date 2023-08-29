@@ -1,3 +1,9 @@
+import { BLOG_TITLE } from '@/constants';
+
+export const metadata = {
+  title: `404 Not found • ${BLOG_TITLE}`,
+};
+
 const NotFound = () => {
   return (
     <div

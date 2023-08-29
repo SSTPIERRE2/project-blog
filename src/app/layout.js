@@ -23,7 +23,6 @@ const monoFont = Spline_Sans_Mono({
 });
 
 function RootLayout({ children }) {
-  // TODO: Dynamic theme depending on user preference
   const savedTheme = cookies().get('color-theme');
   const initialTheme = savedTheme?.value || 'light';
 

@@ -13,17 +13,17 @@ export async function GET() {
   });
 
   blogPosts.forEach((post) => {
-    const { title, abstract, publishedOn } = post;
+    const { title, abstract, publishedOn, slug } = post;
 
     feed.item({
       title,
       description: abstract,
       date: publishedOn,
+      url: `http://some-website.com/${slug}`,
     });
   });
 
   return new Response(feed.xml({ indent: true }), {
-    status: 200,
     headers: {
       'Content-Type': 'application/xml',
     },

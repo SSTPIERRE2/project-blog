@@ -4,14 +4,9 @@ import BlogHero from '@/components/BlogHero';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import styles from './postSlug.module.css';
 import { loadBlogPost } from '@/helpers/file-helpers';
-import CircularColorsDemo from '@/components/CircularColorsDemo';
-import CodeSnippet from '@/components/CodeSnippet';
-import dynamic from 'next/dynamic';
 import { notFound } from 'next/navigation';
-
-const DivisionGroupsDemo = dynamic(() =>
-  import('@/components/DivisionGroupsDemo')
-);
+import { BLOG_TITLE } from '@/constants';
+import COMPONENT_MAP from '@/helpers/mdx-components';
 
 export const getPostMetadata = React.cache(async (postSlug) => {
   let post;
@@ -28,7 +23,7 @@ export const getPostMetadata = React.cache(async (postSlug) => {
   } = post;
 
   return {
-    title,
+    title: `${title} • ${BLOG_TITLE}`,
     abstract,
     publishedOn,
     content,
@@ -51,14 +46,7 @@ async function BlogPost({ params: { postSlug } }) {
     <article className={styles.wrapper}>
       <BlogHero title={title} publishedOn={publishedOn} />
       <div className={styles.page}>
-        <MDXRemote
-          source={content}
-          components={{
-            DivisionGroupsDemo,
-            CircularColorsDemo,
-            pre: CodeSnippet,
-          }}
-        />
+        <MDXRemote source={content} components={COMPONENT_MAP} />
       </div>
     </article>
   );
